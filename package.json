@@ -1,0 +1,48 @@
+{
+  "name": "jpegoptim-bin",
+  "version": "0.1.0",
+  "description": "JpegOptim Node.js wrapper",
+  "keywords": [
+    "jpg",
+    "jpeg",
+    "compress",
+    "minify",
+    "optimize",
+    "img",
+    "image"
+  ],
+  "author": {
+    "name": "1000ch",
+    "email": "shogo.sensui@gmail.com",
+    "url": "http://1000ch.net"
+  },
+  "main": "lib/jpegoptim",
+  "bin": {
+    "pngcrush": "bin/jpegoptim.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/1000ch/node-jpegoptim-bin.git"
+  },
+  "scripts": {
+    "test": "mocha ./test/test-build.js ./test/test-path.js",
+    "postinstall": "node ./lib/build.js"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "licenses": [{
+    "type": "BSD"
+  }],
+  "dependencies": {
+    "bin-wrapper": "~0.1.9",
+    "chalk": "~0.4.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.1"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ]
+}
