@@ -2,7 +2,7 @@
 
 ## About
 
-[jpegoptim](http://pmt.sourceforge.net/jpegoptim/) Node.js wrapper that optimize PNG images.
+[jpegoptim](http://pmt.sourceforge.net/jpegoptim/) Node.js wrapper that optimize JPEG images.
 
 > jpegoptim is a utility for optimizing JPEG files. It provides lossless optimization (based on optimizing the Huffman tables) and "lossy" optimization based on setting a maximum quality factor.
 
