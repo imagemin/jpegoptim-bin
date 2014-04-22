@@ -17,29 +17,31 @@ describe('jpegoptim()', function () {
     var binPath = require('../lib/jpegoptim').path;
 
     execFile(binPath, ['-h'], function (err, stdout, stderr) {
-      assert(stdout.toString().indexOf('jpegoptim') !== -1);
+      assert(stderr.toString().indexOf('jpegoptim') !== -1);
       callback();
     });
   });
 
-  it('should successfully proxy jpeg-recompress', function (callback) {
+  it('should successfully proxy jpegoptim', function (callback) {
     var binPath = path.join(__dirname, '../bin/jpegoptim.js');
 
     execFile('node', [binPath, '-h'], function (err, stdout, stderr) {
-      assert(stdout.toString().indexOf('jpegoptim') !== -1);
+      assert(stderr.toString().indexOf('jpegoptim') !== -1);
       callback();
     });
   });
 
-  it('should minify a .png', function (callback) {
+  it('should minify a .jpg', function (callback) {
     var binPath = path.join(__dirname, '../bin/jpegoptim.js');
+
+    var readStream = fs.createReadStream('test/fixtures/test.jpg');
+    readStream.pipe(fs.createWriteStream('test/fixtures/minified.jpg'));
+
     var args = [
-      '--override',
       '--strip-all',
       '--strip-iptc',
       '--strip-icc',
       '--all-progressive',
-      path.join(__dirname, 'fixtures', 'test.jpg'),
       path.join(__dirname, 'fixtures', 'minified.jpg')
     ];
 
