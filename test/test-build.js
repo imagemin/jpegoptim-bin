@@ -12,7 +12,7 @@ describe('jpegoptim.build()', function () {
     var bin = new Bin(options);
 
     bin.path = path.join(__dirname, '../vendor', bin.bin);
-    bin.buildScript = './configure && make && mv ./jpegoptim ' + path.join(__dirname, '../vendor');
+    bin.buildScript = './configure && make && mv ./jpegoptim ' + path.join(__dirname, '../vendor/jpegoptim');
 
     bin.build(function () {
       var origCTime = fs.statSync(bin.path).ctime;

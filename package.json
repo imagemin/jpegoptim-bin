@@ -1,6 +1,6 @@
 {
   "name": "jpegoptim-bin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "JpegOptim Node.js wrapper",
   "keywords": [
     "jpg",
@@ -43,6 +43,7 @@
   },
   "files": [
     "bin",
-    "lib"
+    "lib",
+    "vendor"
   ]
 }
