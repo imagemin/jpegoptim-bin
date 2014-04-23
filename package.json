@@ -18,7 +18,7 @@
   },
   "main": "lib/jpegoptim",
   "bin": {
-    "pngcrush": "bin/jpegoptim.js"
+    "jpegoptim": "bin/jpegoptim.js"
   },
   "repository": {
     "type": "git",
