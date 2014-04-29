@@ -1,6 +1,6 @@
 {
   "name": "jpegoptim-bin",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "JpegOptim Node.js wrapper",
   "keywords": [
     "jpg",
@@ -24,7 +24,7 @@
     "url": "git://github.com/1000ch/node-jpegoptim-bin.git"
   },
   "scripts": {
-    "test": "mocha --reporter list --timeout 0",
+    "test": "mocha --reporter spec --timeout 0",
     "postinstall": "node index.js"
   },
   "engines": {
