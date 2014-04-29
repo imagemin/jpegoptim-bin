@@ -1,7 +1,5 @@
 # [node-jpegoptim-bin](https://npmjs.org/package/jpegoptim-bin)
 
-## About
-
 [jpegoptim](http://pmt.sourceforge.net/jpegoptim/) Node.js wrapper that optimize JPEG images.
 
 > jpegoptim is a utility for optimizing JPEG files. It provides lossless optimization (based on optimizing the Huffman tables) and "lossy" optimization based on setting a maximum quality factor.
@@ -14,22 +12,29 @@
 ## Install
 
 ```sh
-$ npm install -g jpegoptim-bin
+$ npm install --save jpegoptim-bin
 ```
 
-## Usage with Node.js
+## Usage
 
 ```js
 var execFile = require('child_process').execFile;
-var jpegoptimPath = require('jpegoptim-bin').path;
+var jpegoptim = require('jpegoptim-bin').path;
 
-execFile(jpegoptimPath, [
+var args = [
   '--override',
   '--strip-all',
   '--strip-iptc',
   '--strip-icc',
   '--all-progressive',
-  '--dest=dest.jpg', 'src.jpg'], function() {
+  'input.jpg'
+];
+
+execFile(jpegoptim, args, function (err) {
+  if (err) {
+    throw err;
+  }
+
   console.log('Image minified');
 });
 ```
@@ -37,4 +42,5 @@ execFile(jpegoptimPath, [
 ## License
 
 This is licensed under BSD.
+
 [jpegoptim](https://github.com/tjko/jpegoptim) is licensed under GNU General Public License.
