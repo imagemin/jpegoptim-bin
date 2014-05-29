@@ -10,37 +10,37 @@ var spawn = require('child_process').spawn;
 var rm = require('rimraf');
 
 describe('jpegoptim()', function () {
-  afterEach(function (cb) {
-    rm(path.join(__dirname, 'tmp'), cb);
+  afterEach(function (callback) {
+    rm(path.join(__dirname, 'tmp'), callback);
   });
 
-  beforeEach(function (cb) {
-    fs.mkdir(path.join(__dirname, 'tmp'), cb);
+  beforeEach(function (callback) {
+    fs.mkdir(path.join(__dirname, 'tmp'), callback);
   });
 
-  it('should rebuild the jpegoptim binaries', function (cb) {
+  it('should rebuild the jpegoptim binaries', function (callback) {
     var tmp = path.join(__dirname, 'tmp');
     var builder = new BinBuild()
       .src('https://github.com/tjko/jpegoptim/archive/RELEASE.1.3.1.tar.gz')
       .cfg('./configure --prefix="' + tmp + '"')
       .make('make install');
 
-    builder.build(function (err) {
-      assert(!err);
+    builder.build(function (error) {
+      assert(!error);
       assert(fs.existsSync(path.join(tmp, 'bin/jpegoptim')));
-      cb();
+      callback();
     });
   });
 
-  it('should return path to binary and verify that it is working', function (cb) {
+  it('should return path to binary and verify that it is working', function (callback) {
       var binPath = require('../').path;
 
-      binCheck(binPath, ['--version'], function (err, works) {
-      cb(assert.equal(works, true));
+      binCheck(binPath, ['--version'], function (error, works) {
+      callback(assert.equal(works, true));
     });
   });
 
-  it('should minify a GIF', function (cb) {
+  it('should minify a JPEG', function (callback) {
     var binPath = require('../').path;
     var args = [
       '--strip-all',
@@ -53,7 +53,7 @@ describe('jpegoptim()', function () {
       var src = fs.statSync(path.join(__dirname, 'fixtures/test.jpg')).size;
       var dest = fs.statSync(path.join(__dirname, 'tmp/test.jpg')).size;
 
-      cb(assert(dest < src));
+      callback(assert(dest < src));
     });
   });
 });
