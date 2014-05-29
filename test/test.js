@@ -14,8 +14,8 @@ describe('jpegoptim()', function () {
     rm(path.join(__dirname, 'tmp'), callback);
   });
 
-  beforeEach(function (callback) {
-    fs.mkdir(path.join(__dirname, 'tmp'), callback);
+  beforeEach(function () {
+    fs.mkdirSync(path.join(__dirname, 'tmp'));
   });
 
   it('should rebuild the jpegoptim binaries', function (callback) {
