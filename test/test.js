@@ -4,9 +4,9 @@
 var assert = require('assert');
 var binCheck = require('bin-check');
 var BinBuild = require('bin-build');
+var execFile = require('child_process').execFile;
 var fs = require('fs');
 var path = require('path');
-var spawn = require('child_process').spawn;
 var rm = require('rimraf');
 
 describe('jpegoptim()', function () {
@@ -21,22 +21,25 @@ describe('jpegoptim()', function () {
   it('should rebuild the jpegoptim binaries', function (callback) {
     var tmp = path.join(__dirname, 'tmp');
     var builder = new BinBuild()
-      .src('https://github.com/tjko/jpegoptim/archive/RELEASE.1.3.1.tar.gz')
-      .cfg('./configure --prefix="' + tmp + '"')
-      .make('make install');
+      .src('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.1.tar.gz')
+      .cmd('./configure --prefix="' + tmp + '" --bindir="' + tmp + '"')
+      .cmd('make install')
+      .cmd('mv ' + path.join(tmp, 'bin/jpegoptim') + ' ' + path.join(tmp, 'jpegoptim'));
 
     builder.build(function (error) {
       assert(!error);
-      assert(fs.existsSync(path.join(tmp, 'bin/jpegoptim')));
+      assert(fs.existsSync(path.join(tmp, 'jpegoptim')));
       callback();
     });
   });
 
   it('should return path to binary and verify that it is working', function (callback) {
-      var binPath = require('../').path;
+    var binPath = require('../').path;
 
-      binCheck(binPath, ['--version'], function (error, works) {
-      callback(assert.equal(works, true));
+    binCheck(binPath, ['--version'], function (error, works) {
+      assert(!error);
+      assert.equal(works, true);
+      callback();
     });
   });
 
@@ -49,11 +52,13 @@ describe('jpegoptim()', function () {
       path.join(__dirname, 'fixtures/test.jpg')
     ];
 
-    spawn(binPath, args).on('close', function () {
+    execFile(binPath, args, function (error) {
       var src = fs.statSync(path.join(__dirname, 'fixtures/test.jpg')).size;
       var dest = fs.statSync(path.join(__dirname, 'tmp/test.jpg')).size;
 
-      callback(assert(dest < src));
+      assert(!error);
+      assert(dest < src);
+      callback();
     });
   });
 });
