@@ -1,54 +1,47 @@
 {
   "name": "jpegoptim-bin",
   "version": "0.1.6",
-  "description": "JpegOptim Node.js wrapper",
-  "keywords": [
-    "jpg",
-    "jpeg",
-    "compress",
-    "minify",
-    "optimize",
-    "img",
-    "image"
-  ],
+  "description": "jpegoptim wrapper that makes it seamlessly available as a local dependency",
+  "license": "MIT",
+  "repository": "imagemin/jpegoptim-bin",
   "author": {
     "name": "1000ch",
     "email": "shogo.sensui@gmail.com",
-    "url": "https://github.com/1000ch"
-  },
-  "maintainer": {
-    "name": "Kevin Mårtensson",
-    "email": "kevinmartensson@gmail.com",
-    "url": "https://github.com/kevva"
-  },
-  "bin": {
-    "jpegoptim": "cli.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/1000ch/node-jpegoptim-bin.git"
-  },
-  "scripts": {
-    "test": "mocha --reporter spec --timeout 50000",
-    "postinstall": "node lib/install.js"
+    "url": "http://github.com/1000ch"
   },
   "engines": {
     "node": ">=0.10.0"
   },
-  "license": "BSD",
-  "dependencies": {
-    "bin-build": "^0.2.0",
-    "bin-wrapper": "^0.4.0",
-    "log-symbols": "^1.0.0"
+  "bin": {
+    "jpegoptim": "cli.js"
   },
-  "devDependencies": {
-    "bin-check": "^0.2.0",
-    "mocha": "^1.18.2",
-    "rimraf": "^2.2.6"
+  "scripts": {
+    "postinstall": "node lib/install.js",
+    "test": "node test/test.js"
   },
   "files": [
     "cli.js",
     "index.js",
     "lib"
-  ]
+  ],
+  "keywords": [
+    "compress",
+    "image",
+    "img",
+    "jpeg",
+    "jpg",
+    "minify",
+    "optimize"
+  ],
+  "dependencies": {
+    "bin-build": "^1.0.0",
+    "bin-wrapper": "^1.0.0",
+    "log-symbols": "^1.0.0"
+  },
+  "devDependencies": {
+    "ava": "0.0.4",
+    "bin-check": "^1.0.0",
+    "mkdirp": "^0.5.0",
+    "rimraf": "^2.2.8"
+  }
 }
