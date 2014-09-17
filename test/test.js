@@ -1,7 +1,8 @@
 'use strict';
 
-var binCheck = require('bin-check');
+var bin = require('../lib');
 var BinBuild = require('bin-build');
+var binVersion = require('bin-version');
 var execFile = require('child_process').execFile;
 var fs = require('fs');
 var mkdir = require('mkdirp');
@@ -14,15 +15,15 @@ test('rebuild the jpegoptim binaries', function (t) {
 	t.plan(3);
 
 	var builder = new BinBuild()
-		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.1.tar.gz')
+		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.' + bin.v + '.tar.gz')
 		.cmd('./configure --prefix="' + tmp + '" --bindir="' + tmp + '"')
 		.cmd('make install')
-		.cmd('mv ' + path.join(tmp, 'bin/jpegoptim') + ' ' + path.join(tmp, 'jpegoptim'));
+		.cmd('mv ' + path.join(tmp, 'bin/' + bin.use()) + ' ' + path.join(tmp, bin.use()));
 
 	builder.build(function (err) {
 		t.assert(!err);
 
-		fs.exists(path.join(tmp, 'jpegoptim'), function (exists) {
+		fs.exists(path.join(tmp, bin.use()), function (exists) {
 			t.assert(exists);
 
 			rm(tmp, function (err) {
@@ -35,9 +36,9 @@ test('rebuild the jpegoptim binaries', function (t) {
 test('return path to binary and verify that it is working', function (t) {
 	t.plan(2);
 
-	binCheck(require('../').path, ['--version'], function (err, works) {
+	binVersion(require('../').path, function (err, version) {
 		t.assert(!err);
-		t.assert(works);
+		t.assert(bin.v);
 	});
 });
 
