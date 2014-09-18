@@ -13,9 +13,9 @@ var tmp = path.join(__dirname, 'tmp');
 
 test('rebuild the jpegoptim binaries', function (t) {
 	t.plan(3);
-  
-  var make = process.platform === 'win32' ? 'nmake' : 'make';
-  var move = process.platform === 'win32' ? 'move' : 'mv';
+
+	var make = process.platform === 'win32' ? 'nmake' : 'make';
+	var move = process.platform === 'win32' ? 'move' : 'mv';
 
 	var builder = new BinBuild()
 		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.' + bin.v + '.tar.gz')
@@ -41,7 +41,7 @@ test('return path to binary and verify that it is working', function (t) {
 
 	binVersion(require('../').path, function (err, version) {
 		t.assert(!err);
-		t.assert(bin.v);
+		t.assert(bin.v === version);
 	});
 });
 
