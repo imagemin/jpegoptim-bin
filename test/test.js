@@ -13,12 +13,15 @@ var tmp = path.join(__dirname, 'tmp');
 
 test('rebuild the jpegoptim binaries', function (t) {
 	t.plan(3);
+  
+  var make = process.platform === 'win32' ? 'nmake' : 'make';
+  var move = process.platform === 'win32' ? 'move' : 'mv';
 
 	var builder = new BinBuild()
 		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.' + bin.v + '.tar.gz')
-		.cmd('./configure --prefix="' + tmp + '" --bindir="' + tmp + '"')
-		.cmd('make install')
-		.cmd('mv ' + path.join(tmp, 'bin/' + bin.use()) + ' ' + path.join(tmp, bin.use()));
+		.cmd('.' + path.sep + 'configure --prefix="' + tmp + '" --bindir="' + tmp + '"')
+		.cmd(make + ' install')
+		.cmd(move + ' ' + path.join(tmp, 'bin', bin.use()) + ' ' + path.join(tmp, bin.use()));
 
 	builder.build(function (err) {
 		t.assert(!err);
