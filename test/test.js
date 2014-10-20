@@ -23,7 +23,7 @@ test('rebuild the jpegoptim binaries', function (t) {
 		.cmd(make + ' install')
 		.cmd(move + ' ' + path.join(tmp, 'bin', bin.use()) + ' ' + path.join(tmp, bin.use()));
 
-	builder.build(function (err) {
+	builder.run(function (err) {
 		t.assert(!err);
 
 		fs.exists(path.join(tmp, bin.use()), function (exists) {
