@@ -5,14 +5,12 @@ var BinBuild = require('bin-build');
 var binVersion = require('bin-version');
 var execFile = require('child_process').execFile;
 var fs = require('fs');
-var mkdir = require('mkdirp');
 var path = require('path');
-var rm = require('rimraf');
 var test = require('ava');
 var tmp = path.join(__dirname, 'tmp');
 
 test('rebuild the jpegoptim binaries', function (t) {
-	t.plan(3);
+	t.plan(2);
 
 	var make = process.platform === 'win32' ? 'nmake' : 'make';
 	var move = process.platform === 'win32' ? 'move' : 'mv';
@@ -28,10 +26,6 @@ test('rebuild the jpegoptim binaries', function (t) {
 
 		fs.exists(path.join(tmp, bin.use()), function (exists) {
 			t.assert(exists);
-
-			rm(tmp, function (err) {
-				t.assert(!err);
-			});
 		});
 	});
 });
@@ -46,7 +40,7 @@ test('return path to binary and verify that it is working', function (t) {
 });
 
 test('minify a JPG', function (t) {
-	t.plan(6);
+	t.plan(4);
 
 	var args = [
 		'--strip-all',
@@ -55,23 +49,15 @@ test('minify a JPG', function (t) {
 		path.join(__dirname, 'fixtures/test.jpg')
 	];
 
-	mkdir(tmp, function (err) {
+	execFile(require('../').path, args, function (err) {
 		t.assert(!err);
 
-		execFile(require('../').path, args, function (err) {
+		fs.stat(path.join(__dirname, 'fixtures/test.jpg'), function (err, a) {
 			t.assert(!err);
 
-			fs.stat(path.join(__dirname, 'fixtures/test.jpg'), function (err, a) {
+			fs.stat(path.join(tmp, 'test.jpg'), function (err, b) {
 				t.assert(!err);
-
-				fs.stat(path.join(tmp, 'test.jpg'), function (err, b) {
-					t.assert(!err);
-					t.assert(b.size < a.size);
-
-					rm(tmp, function (err) {
-						t.assert(!err);
-					});
-				});
+				t.assert(b.size < a.size);
 			});
 		});
 	});
