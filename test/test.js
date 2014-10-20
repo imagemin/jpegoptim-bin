@@ -2,7 +2,11 @@
 
 var bin = require('../lib');
 var BinBuild = require('bin-build');
+<<<<<<< HEAD
 var binVersion = require('bin-version');
+=======
+var compareSize = require('compare-size');
+>>>>>>> Use `compare-size`
 var execFile = require('child_process').execFile;
 var fs = require('fs');
 var path = require('path');
@@ -40,25 +44,23 @@ test('return path to binary and verify that it is working', function (t) {
 });
 
 test('minify a JPG', function (t) {
-	t.plan(4);
+	t.plan(3);
 
+	var src = path.join(__dirname, 'fixtures/test.jpg');
+	var dest = path.join(tmp, 'test.jpg');
 	var args = [
 		'--strip-all',
 		'--all-progressive',
-		'--dest=' + path.join(__dirname, 'tmp'),
-		path.join(__dirname, 'fixtures/test.jpg')
+		'--dest=' + tmp,
+		src
 	];
 
 	execFile(require('../').path, args, function (err) {
 		t.assert(!err);
 
-		fs.stat(path.join(__dirname, 'fixtures/test.jpg'), function (err, a) {
+		compareSize(src, dest, function (err, res) {
 			t.assert(!err);
-
-			fs.stat(path.join(tmp, 'test.jpg'), function (err, b) {
-				t.assert(!err);
-				t.assert(b.size < a.size);
-			});
+			t.assert(res[dest] < res[src]);
 		});
 	});
 });
