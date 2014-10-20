@@ -1,6 +1,5 @@
 'use strict';
 
-var bin = require('../lib');
 var BinBuild = require('bin-build');
 var binVersion = require('bin-version');
 var compareSize = require('compare-size');
@@ -13,19 +12,17 @@ var tmp = path.join(__dirname, 'tmp');
 test('rebuild the jpegoptim binaries', function (t) {
 	t.plan(2);
 
-	var make = process.platform === 'win32' ? 'nmake' : 'make';
-	var move = process.platform === 'win32' ? 'move' : 'mv';
-
+	var version = require('../').version;
 	var builder = new BinBuild()
-		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.' + bin.v + '.tar.gz')
-		.cmd('.' + path.sep + 'configure --prefix="' + tmp + '" --bindir="' + tmp + '"')
-		.cmd(make + ' install')
-		.cmd(move + ' ' + path.join(tmp, 'bin', bin.use()) + ' ' + path.join(tmp, bin.use()));
+		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.' + version + '.tar.gz')
+		.cmd('./configure --prefix="' + tmp + '" --bindir="' + tmp + '"')
+		.cmd('make install')
+		.cmd('mv ' + path.join(tmp, 'bin', 'jpegoptim') + ' ' + path.join(tmp, 'jpegoptim'));
 
 	builder.run(function (err) {
 		t.assert(!err, err);
 
-		fs.exists(path.join(tmp, bin.use()), function (exists) {
+		fs.exists(path.join(tmp, 'jpegoptim'), function (exists) {
 			t.assert(exists);
 		});
 	});
@@ -36,7 +33,7 @@ test('return path to binary and verify that it is working', function (t) {
 
 	binVersion(require('../').path, function (err, version) {
 		t.assert(!err, err);
-		t.assert(bin.v === version);
+		t.assert(require('../').version === version);
 	});
 });
 
