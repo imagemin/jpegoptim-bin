@@ -1,7 +1,7 @@
 'use strict';
 
 var BinBuild = require('bin-build');
-var binVersion = require('bin-version');
+var binCheck = require('bin-check');
 var compareSize = require('compare-size');
 var execFile = require('child_process').execFile;
 var fs = require('fs');
@@ -30,9 +30,9 @@ test('rebuild the jpegoptim binaries', function (t) {
 test('return path to binary and verify that it is working', function (t) {
 	t.plan(2);
 
-	binVersion(require('../').path, function (err, version) {
+	binCheck(require('../').path, ['--version'], function (err, works) {
 		t.assert(!err, err);
-		t.assert(require('../').version === version);
+		t.assert(works);
 	});
 });
 
