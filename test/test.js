@@ -16,8 +16,7 @@ test('rebuild the jpegoptim binaries', function (t) {
 	var builder = new BinBuild()
 		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.' + version + '.tar.gz')
 		.cmd('./configure --prefix="' + tmp + '" --bindir="' + tmp + '"')
-		.cmd('make install')
-		.cmd('mv ' + path.join(tmp, 'bin', 'jpegoptim') + ' ' + path.join(tmp, 'jpegoptim'));
+		.cmd('make install');
 
 	builder.run(function (err) {
 		t.assert(!err, err);
