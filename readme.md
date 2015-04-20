@@ -5,7 +5,7 @@
 
 ## Install
 
-```sh
+```
 $ npm install --save jpegoptim-bin
 ```
 
@@ -14,7 +14,7 @@ $ npm install --save jpegoptim-bin
 
 ```js
 var execFile = require('child_process').execFile;
-var jpegOptim = require('jpegoptim-bin').path;
+var jpegoptim = require('jpegoptim-bin').path;
 
 var args = [
 	'--override',
@@ -26,11 +26,7 @@ var args = [
 	'input.jpg'
 ];
 
-execFile(jpegOptim, args, function (err) {
-	if (err) {
-		throw err;
-	}
-
+execFile(jpegoptim, args, function (err) {
 	console.log('Image minified');
 });
 ```
@@ -38,11 +34,11 @@ execFile(jpegOptim, args, function (err) {
 
 ## CLI
 
-```sh
+```
 $ npm install --global jpegoptim-bin
 ```
 
-```sh
+```
 $ jpegoptim --help
 ```
 
