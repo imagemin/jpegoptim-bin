@@ -2,7 +2,7 @@
 'use strict';
 
 var spawn = require('child_process').spawn;
-var jpegoptim = require('./').path;
+var jpegoptim = require('./');
 var input = process.argv.slice(2);
 
 spawn(jpegoptim, input, {stdio: 'inherit'})

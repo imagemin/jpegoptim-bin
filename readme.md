@@ -14,7 +14,7 @@ $ npm install --save jpegoptim-bin
 
 ```js
 var execFile = require('child_process').execFile;
-var jpegoptim = require('jpegoptim-bin').path;
+var jpegoptim = require('jpegoptim-bin');
 
 var args = [
 	'--override',
