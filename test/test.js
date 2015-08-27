@@ -22,7 +22,7 @@ afterEach(function () {
 
 it('rebuild the jpegoptim binaries', function (cb) {
 	new BinBuild()
-		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.2.tar.gz')
+		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.3.tar.gz')
 		.cmd('./configure --prefix="' + tmp + '" --bindir="' + tmp + '"')
 		.cmd('make install')
 		.run(function (err) {
