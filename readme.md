@@ -22,7 +22,7 @@ var args = [
 	'--strip-iptc',
 	'--strip-icc',
 	'--all-progressive',
-	'--dest=build'
+	'--dest=build',
 	'input.jpg'
 ];
 
