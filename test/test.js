@@ -1,4 +1,4 @@
-/*global afterEach,beforeEach,it*/
+/* eslint-env mocha */
 'use strict';
 
 var assert = require('assert');
@@ -12,12 +12,12 @@ var mkdirp = require('mkdirp');
 var rimraf = require('rimraf');
 var tmp = path.join(__dirname, 'tmp');
 
-beforeEach(function () {
-	mkdirp.sync(tmp);
+beforeEach(function (cb) {
+	mkdirp(tmp, cb);
 });
 
-afterEach(function () {
-	rimraf.sync(tmp);
+afterEach(function (cb) {
+	rimraf(tmp, cb);
 });
 
 it('rebuild the jpegoptim binaries', function (cb) {
