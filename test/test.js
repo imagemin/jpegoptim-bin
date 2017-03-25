@@ -1,62 +1,44 @@
-/* eslint-env mocha */
 'use strict';
+const fs = require('fs');
+const path = require('path');
+const test = require('ava');
+const execa = require('execa');
+const tempy = require('tempy');
+const BinBuild = require('bin-build');
+const binCheck = require('bin-check');
+const compareSize = require('compare-size');
+const jpegoptim = require('..');
 
-var assert = require('assert');
-var execFile = require('child_process').execFile;
-var fs = require('fs');
-var path = require('path');
-var BinBuild = require('bin-build');
-var binCheck = require('bin-check');
-var compareSize = require('compare-size');
-var mkdirp = require('mkdirp');
-var rimraf = require('rimraf');
-var tmp = path.join(__dirname, 'tmp');
-
-beforeEach(function (cb) {
-	mkdirp(tmp, cb);
-});
-
-afterEach(function (cb) {
-	rimraf(tmp, cb);
-});
-
-it('rebuild the jpegoptim binaries', function (cb) {
+test.cb('rebuild the jpegoptim binaries', t => {
+	const tmp = tempy.directory();
 	new BinBuild()
 		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.3.tar.gz')
-		.cmd('./configure --prefix="' + tmp + '" --bindir="' + tmp + '"')
+		.cmd(`./configure --prefix="${tmp}" --bindir="${tmp}"`)
 		.cmd('make install')
-		.run(function (err) {
-			assert(!err);
-			assert(fs.statSync(path.join(tmp, 'jpegoptim')).isFile());
-			cb();
+		.run(err => {
+			t.ifError(err);
+			t.true(fs.existsSync(path.join(tmp, 'jpegoptim')));
+			t.end();
 		});
 });
 
-it('return path to binary and verify that it is working', function (cb) {
-	binCheck(require('../'), ['--version'], function (err, works) {
-		assert(!err);
-		assert(works);
-		cb();
-	});
+test('return path to binary and verify that it is working', async t => {
+	t.true(await binCheck(jpegoptim, ['--version']));
 });
 
-it('minify a JPG', function (cb) {
-	var src = path.join(__dirname, 'fixtures/test.jpg');
-	var dest = path.join(tmp, 'test.jpg');
-	var args = [
+test('minify a JPG', async t => {
+	const tmp = tempy.directory();
+	const src = path.join(__dirname, 'fixtures/test.jpg');
+	const dest = path.join(tmp, 'test.jpg');
+	const args = [
 		'--strip-all',
 		'--all-progressive',
 		'--dest=' + tmp,
 		src
 	];
 
-	execFile(require('../'), args, function (err) {
-		assert(!err);
+	await execa(jpegoptim, args);
+	const res = await compareSize(src, dest);
 
-		compareSize(src, dest, function (err, res) {
-			assert(!err);
-			assert(res[dest] < res[src]);
-			cb();
-		});
-	});
+	t.true(res[dest] < res[src]);
 });
