@@ -2,6 +2,8 @@
 
 > [jpegoptim](https://github.com/tjko/jpegoptim) is a utility for optimizing JPEG files that provides lossless optimization (based on optimizing the Huffman tables) and "lossy" optimization based on setting a maximum quality factor
 
+You probably want [`imagemin-jpegoptim`](https://github.com/imagemin/imagemin-jpegoptim) instead.
+
 
 ## Install
 
@@ -15,10 +17,10 @@ Make sure you have the correct version of libjpeg. See [jpegoptim's README](http
 ## Usage
 
 ```js
-var execFile = require('child_process').execFile;
-var jpegoptim = require('jpegoptim-bin');
+const execFile = require('child_process').execFile;
+const jpegoptim = require('jpegoptim-bin');
 
-var args = [
+const args = [
 	'--override',
 	'--strip-all',
 	'--strip-iptc',
@@ -28,7 +30,7 @@ var args = [
 	'input.jpg'
 ];
 
-execFile(jpegoptim, args, function (err) {
+execFile(jpegoptim, args, err => {
 	console.log('Image minified');
 });
 ```
@@ -47,4 +49,4 @@ $ jpegoptim --help
 
 ## License
 
-MIT © [imagemin](https://github.com/imagemin)
+MIT © [Imagemin](https://github.com/imagemin)
