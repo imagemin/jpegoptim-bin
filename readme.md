@@ -17,7 +17,7 @@ Make sure you have the correct version of libjpeg. See [jpegoptim's README](http
 ## Usage
 
 ```js
-const execFile = require('child_process').execFile;
+const {execFile} = require('child_process');
 const jpegoptim = require('jpegoptim-bin');
 
 const args = [
