@@ -12,7 +12,7 @@ const jpegoptim = require('..');
 test.cb('rebuild the jpegoptim binaries', t => {
 	const tmp = tempy.directory();
 	new BinBuild()
-		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.3.tar.gz')
+		.src('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.4.tar.gz')
 		.cmd(`./configure --prefix="${tmp}" --bindir="${tmp}"`)
 		.cmd('make install')
 		.run(err => {
