@@ -8,7 +8,7 @@ You probably want [`imagemin-jpegoptim`](https://github.com/imagemin/imagemin-jp
 ## Install
 
 ```
-$ npm install --save jpegoptim-bin
+$ npm install jpegoptim-bin
 ```
 
 Make sure you have the correct version of libjpeg. See [jpegoptim's README](https://github.com/tjko/jpegoptim#readme) for more information.

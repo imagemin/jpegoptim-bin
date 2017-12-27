@@ -1,3 +1,5 @@
 node_modules
-test/tmp
-vendor/jpegoptim*
+yarn.lock
+/test/tmp
+/vendor/jpegoptim*
+/vendor/share
