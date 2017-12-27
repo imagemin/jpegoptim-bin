@@ -21,7 +21,7 @@ const {execFile} = require('child_process');
 const jpegoptim = require('jpegoptim-bin');
 
 const args = [
-	'--override',
+	'--overwrite',
 	'--strip-all',
 	'--strip-iptc',
 	'--strip-icc',
