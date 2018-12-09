@@ -10,6 +10,12 @@ const compareSize = require('compare-size');
 const jpegoptim = require('..');
 
 test('rebuild the jpegoptim binaries', async t => {
+	// Skip the test on Windows
+	if (process.platform === 'win32') {
+		t.pass();
+		return;
+	}
+
 	const tmp = tempy.directory();
 	await binBuild.url('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.6.tar.gz', [
 		`./configure --prefix="${tmp}" --bindir="${tmp}"`,
