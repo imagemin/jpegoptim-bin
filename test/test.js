@@ -11,7 +11,7 @@ const jpegoptim = require('..');
 
 test('rebuild the jpegoptim binaries', async t => {
 	const tmp = tempy.directory();
-	await binBuild.url('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.4.tar.gz', [
+	await binBuild.url('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.6.tar.gz', [
 		`./configure --prefix="${tmp}" --bindir="${tmp}"`,
 		'make install'
 	]);
