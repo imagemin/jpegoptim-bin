@@ -16,13 +16,13 @@ test('rebuild the jpegoptim binaries', async t => {
 		return;
 	}
 
-	const tmp = tempy.directory();
+	const temporary = tempy.directory();
 	await binBuild.url('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.6.tar.gz', [
-		`./configure --prefix="${tmp}" --bindir="${tmp}"`,
+		`./configure --prefix="${temporary}" --bindir="${temporary}"`,
 		'make install'
 	]);
 
-	t.true(fs.existsSync(path.join(tmp, 'jpegoptim')));
+	t.true(fs.existsSync(path.join(temporary, 'jpegoptim')));
 });
 
 test('return path to binary and verify that it is working', async t => {
@@ -30,18 +30,18 @@ test('return path to binary and verify that it is working', async t => {
 });
 
 test('minify a JPG', async t => {
-	const tmp = tempy.directory();
+	const temporary = tempy.directory();
 	const src = path.join(__dirname, 'fixtures/test.jpg');
-	const dest = path.join(tmp, 'test.jpg');
+	const dest = path.join(temporary, 'test.jpg');
 	const args = [
 		'--strip-all',
 		'--all-progressive',
-		'--dest=' + tmp,
+		'--dest=' + temporary,
 		src
 	];
 
 	await execa(jpegoptim, args);
-	const res = await compareSize(src, dest);
+	const result = await compareSize(src, dest);
 
-	t.true(res[dest] < res[src]);
+	t.true(result[dest] < result[src]);
 });
