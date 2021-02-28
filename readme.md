@@ -1,4 +1,5 @@
-# jpegoptim-bin [![Build Status](https://img.shields.io/travis/imagemin/jpegoptim-bin/master.svg?style=flat)](https://travis-ci.org/imagemin/jpegoptim-bin)
+# jpegoptim-bin ![GitHub Actions Status](https://github.com/imagemin/jpegoptim-bin/workflows/test/badge.svg?branch=master)
+
 
 > [jpegoptim](https://github.com/tjko/jpegoptim) is a utility for optimizing JPEG files that provides lossless optimization (based on optimizing the Huffman tables) and "lossy" optimization based on setting a maximum quality factor
 
