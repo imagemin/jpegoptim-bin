@@ -1,4 +1,4 @@
-# jpegoptim-bin ![GitHub Actions Status](https://github.com/imagemin/jpegoptim-bin/workflows/test/badge.svg?branch=master)
+# jpegoptim-bin ![GitHub Actions Status](https://github.com/imagemin/jpegoptim-bin/workflows/test/badge.svg?branch=main)
 
 
 > [jpegoptim](https://github.com/tjko/jpegoptim) is a utility for optimizing JPEG files that provides lossless optimization (based on optimizing the Huffman tables) and "lossy" optimization based on setting a maximum quality factor
@@ -18,8 +18,8 @@ Make sure you have the correct version of libjpeg. See [jpegoptim's README](http
 ## Usage
 
 ```js
-const {execFile} = require('child_process');
-const jpegoptim = require('jpegoptim-bin');
+import {execFile} from 'child_process';
+import jpegoptim from 'jpegoptim-bin';
 
 const args = [
 	'--overwrite',
@@ -31,7 +31,7 @@ const args = [
 	'input.jpg'
 ];
 
-execFile(jpegoptim, args, err => {
+execFile(jpegoptim, args, error => {
 	console.log('Image minified');
 });
 ```
