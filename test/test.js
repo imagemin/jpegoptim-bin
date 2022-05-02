@@ -4,7 +4,7 @@ import process from 'node:process';
 import {fileURLToPath} from 'node:url';
 import test from 'ava';
 import {execa} from 'execa';
-import tempy from 'tempy';
+import {temporaryDirectory} from 'tempy';
 import binBuild from 'bin-build';
 import binCheck from 'bin-check';
 import compareSize from 'compare-size';
@@ -17,7 +17,7 @@ test('rebuild the jpegoptim binaries', async t => {
 		return;
 	}
 
-	const temporary = tempy.directory();
+	const temporary = temporaryDirectory();
 	await binBuild.url('https://github.com/tjko/jpegoptim/archive/RELEASE.1.4.6.tar.gz', [
 		`./configure --prefix="${temporary}" --bindir="${temporary}"`,
 		'make install',
@@ -31,7 +31,7 @@ test('return path to binary and verify that it is working', async t => {
 });
 
 test('minify a JPG', async t => {
-	const temporary = tempy.directory();
+	const temporary = temporaryDirectory();
 	const src = fileURLToPath(new URL('fixtures/test.jpg', import.meta.url));
 	const dest = path.join(temporary, 'test.jpg');
 	const args = [
