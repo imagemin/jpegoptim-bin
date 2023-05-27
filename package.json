@@ -63,6 +63,11 @@
     "compare-size": "^3.0.0",
     "execa": "^6.1.0",
     "tempy": "^3.0.0",
-    "xo": "^0.48.0"
+    "xo": "^0.54.2"
+  },
+  "xo": {
+    "rules": {
+      "unicorn/prefer-top-level-await": "off"
+    }
   }
 }
